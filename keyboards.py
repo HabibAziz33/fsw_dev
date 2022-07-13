@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 
+
 def generate_phone_number():
     return ReplyKeyboardMarkup([
         [KeyboardButton(text='📞 Отправить свой контакт 📞', request_contact=True)]
@@ -9,8 +10,10 @@ def generate_phone_number():
 def generate_main_menu():
     return ReplyKeyboardMarkup([
         [KeyboardButton(text='✅ Сделать заказ')],
-        [KeyboardButton(text='📒 История заказов'), KeyboardButton(text='🛒 Корзина'), KeyboardButton(text='⚙ Настройки')]
+        [KeyboardButton(text='📒 История заказов'), KeyboardButton(text='🛒 Корзина'),
+         KeyboardButton(text='⚙ Настройки')]
     ])
+
 
 def generate_categories_menu(categories):
     markup = InlineKeyboardMarkup(row_width=2)
@@ -20,7 +23,7 @@ def generate_categories_menu(categories):
     )
     for category in categories:
         # [(1, Лаваши), (2, Бургеры)]
-        btn = InlineKeyboardButton(text=category[1], callback_data=f'category_{category[0]}') # category_1
+        btn = InlineKeyboardButton(text=category[1], callback_data=f'category_{category[0]}')  # category_1
         buttons.append(btn)
     markup.add(*buttons)
     return markup
@@ -29,7 +32,7 @@ def generate_categories_menu(categories):
 def generate_products_menu(products):
     markup = InlineKeyboardMarkup(row_width=2)
     buttons = []
-    for product_id, product_name in products: # [(1, 'мини лаваш'), ()]
+    for product_id, product_name in products:  # [(1, 'мини лаваш'), ()]
         btn = InlineKeyboardButton(text=product_name, callback_data=f'product_{product_id}')
         buttons.append(btn)
     markup.add(*buttons)
@@ -41,8 +44,8 @@ def generate_products_menu(products):
 
 def generate_product_buttons(product_id, category_id, quantity=1):
     markup = InlineKeyboardMarkup()
-    prev_btn = InlineKeyboardButton(text='➖', callback_data=f'change_{product_id}_{quantity-1}')
-    next_btn = InlineKeyboardButton(text='➕', callback_data=f'change_{product_id}_{quantity+1}')
+    prev_btn = InlineKeyboardButton(text='➖', callback_data=f'change_{product_id}_{quantity - 1}')
+    next_btn = InlineKeyboardButton(text='➕', callback_data=f'change_{product_id}_{quantity + 1}')
     quan_btn = InlineKeyboardButton(text=str(quantity), callback_data='quantity')
     add_to_cart = InlineKeyboardButton(text='Хочу 😻', callback_data=f'cart_{product_id}_{quantity}')
     back = InlineKeyboardButton(text='Назад', callback_data=f'back_{category_id}')
@@ -50,6 +53,7 @@ def generate_product_buttons(product_id, category_id, quantity=1):
     markup.row(add_to_cart)
     markup.row(back)
     return markup
+
 
 def generate_cart_product(cart_id, cart_products):
     markup = InlineKeyboardMarkup()
